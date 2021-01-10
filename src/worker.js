@@ -1,9 +1,11 @@
 const { MultiWorker, Scheduler, Queue } = require('node-resque');
 
+const REDIS_URL = process.env.REDIS_URL || '127.0.0.1';
+
 async function start() {
   const connectionDetails = {
     pkg: "ioredis",
-    host: "127.0.0.1",
+    host: REDIS_URL,
     password: null,
     port: 6379,
     database: 0,
