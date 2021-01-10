@@ -3,7 +3,7 @@ const { Queue } = require('node-resque');
 
 const connectionDetails = {
   pkg: "ioredis",
-  host: "127.0.0.1",
+  host: process.env.REDIS_URL || '127.0.0.1',
   password: null,
   port: 6379,
   database: 0,
@@ -17,6 +17,7 @@ const router = new express.Router()
 const queue = new Queue({ connection: connectionDetails });
 
 router.get('/users', async (req, res) => {
+  console.log(process.env.REDIS_URL)
   await queue.connect();
   await queue.enqueue("math", "add", [1, 2]);
 
